@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void StopPress(View view){
-        String message = "You have parked at _____";
-        TextView textView = (TextView) findViewById(R.id.textView);
+        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        String message = "Your parking has ended at "+mydate;
+        TextView textView = (TextView) findViewById(R.id.textView2);
         textView.setText(message);
     }
 }
