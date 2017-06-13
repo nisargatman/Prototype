@@ -19,14 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void StartPress(View view) {
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String message = "\n\nYou have parked at _____. \nTime : "+ mydate;
+        String message = "\n\n\nYou have parked at _____. \nTime : "+ mydate;
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText(message);
     }
 
     public void StopPress(View view){
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String message = "\nYour parking has ended. \nTime : "+mydate;
+        String message = "\n\nYour parking has ended. \nTime : "+mydate;
         TextView textView = (TextView) findViewById(R.id.textView2);
         textView.setText(message);
     }
