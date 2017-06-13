@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void StartPress(View view) {
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String message = "\n\n\nYou have parked at _____. \nTime : "+ mydate;
+        String message = "\n\n\nYou have parked at (52.205, 0.130). \nTime : "+ mydate;
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText(message);
     }
