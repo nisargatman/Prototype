@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+
 public class MainActivity extends AppCompatActivity {
 
     /*private static final String TAG = MainActivity.class.getSimpleName();
@@ -32,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
     }
 
     /*@Override
