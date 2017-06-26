@@ -28,41 +28,28 @@ public class MainActivity extends AppCompatActivity {
     private TextView mLongitudeText;*/
 
     private LocationManager locationManager;
+    private MyLocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new MyLocationListener();
+
+        // TODO: tidy up permissions here
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locationListener);
     }
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        getLastLocation();
-    }
-
-    private void getLastLocation() {
-        mFusedLocationClient.getLastLocation()
-                .addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            mLastLocation = task.getResult();
-
-                            mLatitudeText.setText(String.format(Locale.ENGLISH, "%s: %f",
-                                    mLatitudeLabel,
-                                    mLastLocation.getLatitude()));
-                            mLongitudeText.setText(String.format(Locale.ENGLISH, "%s: %f",
-                                    mLongitudeLabel,
-                                    mLastLocation.getLongitude()));
-                        } else {
-                            Log.w(TAG, "getLastLocation:exception", task.getException());
-                        }
-                    }
-                });
-    }*/
-
 
     public void StartPress(View view) {
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
@@ -85,11 +72,9 @@ public class MainActivity extends AppCompatActivity {
             locationString = "(location permissions not given)";
         }
         else {
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            // check last known location exists
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+            latitude = locationListener.latitude;
+            longitude = locationListener.longitude;
+            if (latitude != null && longitude != null) {
                 locationString = "(" + latitude + ", " + longitude + ") ";
             }
             else {
@@ -108,4 +93,25 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.textView2);
         textView.setText(message);
     }
+}
+
+class MyLocationListener implements LocationListener {
+
+    public Double latitude;
+    public Double longitude;
+
+    @Override
+    public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+    }
+
+
+    @Override
+    public void onProviderDisabled(String provider) {}
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 }
