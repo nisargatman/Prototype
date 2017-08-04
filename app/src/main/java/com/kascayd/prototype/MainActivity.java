@@ -14,7 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private String mLongitudeLabel;
     private TextView mLatitudeText;
     private TextView mLongitudeText;*/
-
+    private static String ROOT_URL = "www.kascayd.co.uk:8080/ParkServices/";
+    private static final String KEY_VERSION = "key_version";
+    private static final String KEY_HOSTNAME = "key_hostname";
     private LocationManager locationManager;
     private MyLocationListener locationListener;
 
@@ -105,7 +112,6 @@ class MyLocationListener implements LocationListener {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
     }
-
 
     @Override
     public void onProviderDisabled(String provider) {}
